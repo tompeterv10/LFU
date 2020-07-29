@@ -1,0 +1,12 @@
+bin
+obj
+.vscode
+.eggs
+*.egg-info
+.pytest_cache
+__pycache__
+build
+
+*.prefs
+*.classpath
+*.project
