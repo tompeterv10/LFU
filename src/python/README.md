@@ -1,43 +1,51 @@
 # Python Take Home Question
 
-Welcome to the Docugami Python take home question! We also have this same question available in C# and Java, so please select the language the you are most comfortable with.
+Disk Backed Queue written in python
 
-## Problem Outline and Requirements
-1. Implement a disk backed queue. As a refresher, a Queue is a FIFO data structure with O(1) insert and remove operations.
+## Design Choices
+1.  A linked list node is used to track each value of queue in memory.
+    Enqueue operation adds the value next to the tail of linkedlist.
+    Dequeue operation changes the head to point to next value in linkedlist
 
-1. The queue will derive from the BaseQueue abstract class. Please do not modify anything in the "base" directory.
+2. Once the in-memory is full, values are added to a file (disk storage).
+    For the purpose of implementation it is assumed that all values will be integers.
 
-1. The queue constructor takes an integer when it is constructed. That integer dictates the maximum number of queue nodes that can be kept in memory at any given time. All other nodes in the queue must be written to disk.
+3. For Dequeue operation once the in memory count is less than max in   memory count we pop out from disk storage (or file) by reading the value and enqueue it to the inmemory. We use existing enqueue operation to add it in inmemory. This maintains recent nodes in memory at all points(FIFO)
 
-1. To get started create a venv (or a conda environment) and run "pip install -e ." from the take_home_package directory.
+## External resources
 
-1. The implmentation should not use any of the built in Python collection classes (e.g. [] (Lists), collections.*, etc.) as part of the queue implementation. We understand that this makes the question somewhat contrived. 
+1. File api related syntax https://docs.python.org/3/tutorial/inputoutput.html
 
-1. Place your implemenation in the "implementation" directory. We believe that requirements.txt contains all of the necessary requirements to implement your solution. If you would like to add another requirement package to the package, please ask!
 
-1. There is a test file in the "implementation_tests" directory. Please implement any unit tests that you feel would be helpful to test your code.
+## Time Taken
 
-1. The code will be evaluated on the following criteria:
-    1. **Correctness.** We have a private set of unit tests that we will run on the code to evaluate this.
-    1. **Robustness.** Is the code "production" quality?
-    1. **Readability and Organization.** Is your code easy to read? Could another developer easily make changes to your code?
-    1. **Unit Tests.** Did you write a thorough set of unit tests for your queue? Did you correctly handle all of the corner cases? Maybe you thought of some tests that we missed! :)
+1. It took around 2.5 hours to 3 hours to implement the changes and tests for the project.
 
-1. Please do not use external resources to help with the algorithmic aspects of this problem. We really want to see how you think and code. That said, if you have basic questions on the functionality of Python built in libraries, feel free to find answers on the internet. To clarify, here is a good and bad example of when to use external resources:
-    - **Good:** Searching Stack Overflow to understand a nuance of how the Python file apis work.
-    - **Bad:** Searching Stack Overflow for how to implement a queue.
+2. Test cases covered include tests for enqueue and dequeue operations. Negative case in which dequeue returns exception. Verified total count, memory count, and on diskcount is as expected in each stage of enqueue and dequeue operation. Assert statements to ensure peek returns as expected and returns null when queue is empty.
 
-1. Please provide a README.md with your submission to describe:
-    - The design choices you made and why you made them.
-    - Any external resources you used for help.
-    - The amount of time that it took you to write the code and test cases.
 
-1. **Have fun!** If you have any questions, feel stuck or have any concerns, please email enghiring@docugami.com.
+Test Coverage 
 
-## Required Tools
+```
+platform win32 -- Python 3.8.5, pytest-5.3.5, py-1.9.0, pluggy-0.13.1
+rootdir: C:\Users\tpeter\Documents\GitHub\TakeHome-TomPeter\src\python\take_home_package
+plugins: cov-2.10.0
+collected 3 items
 
-1. Python 3.6 or greater.
+test_queue.py ...                                                                                                                                                                                                              [100%]
 
-2. The IDE of your choice. We recommend Visual Studio Code: https://code.visualstudio.com/Download. If you use VS Code, here are some nice extensions:
-    - Python
+----------- coverage: platform win32, python 3.8.5-final-0 -----------
+Name                                                                                                                  Stmts   Miss  Cover
+-----------------------------------------------------------------------------------------------------------------------------------------
+C:\Users\tpeter\Documents\GitHub\TakeHome-TomPeter\src\python\take_home_package\take_home\base\__init__.py                 0      0   100%
+C:\Users\tpeter\Documents\GitHub\TakeHome-TomPeter\src\python\take_home_package\take_home\base\base_queue.py              22      0   100%
+C:\Users\tpeter\Documents\GitHub\TakeHome-TomPeter\src\python\take_home_package\take_home\implementation\__init__.py       0      0   100%
+C:\Users\tpeter\Documents\GitHub\TakeHome-TomPeter\src\python\take_home_package\take_home\implementation\queue.py         64      0   100%
+__init__.py                                                                                                               0      0   100%
+test_queue.py                                                                                                            68      0   100%
+-----------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                   154      0   100%
+
+
+```
 
