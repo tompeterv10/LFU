@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-
 import setuptools
 
 with open('requirements.txt') as f:
