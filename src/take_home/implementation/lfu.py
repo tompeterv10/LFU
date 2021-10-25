@@ -1,6 +1,7 @@
 from collections import defaultdict
 
 class ListNode:
+    ''' This class describes the node used in DLL.'''
     def __init__(self, key=None, value=None):
         self.key = key
         self.value = value
@@ -9,6 +10,7 @@ class ListNode:
         self.next = None
         
 class DLL:
+    ''' DLL stands for doubly linked list, it holds the nodes (key, value pairs) and supports functionalities used to add and remove the nodes.'''
     def __init__(self):
         self.head = ListNode()
         self.tail = ListNode()

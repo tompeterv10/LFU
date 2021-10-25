@@ -31,6 +31,8 @@ def test_empty_cache_put():
 
 
 def test_cache_reaches_max_capacity():
+    '''Test to validate max capacity of cache.'''
+    
     cache = LFUCache(1)
 
     # add first key, value
@@ -81,6 +83,7 @@ def test_cache_mixed():
 
 
 def test_updated_value_in_cache():
+    '''Test to validate the update functionality in cache.'''
 
     cache = LFUCache(1)
     # add first key, value
